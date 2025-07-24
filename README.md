@@ -90,8 +90,9 @@ bot-manager/
 ## 🚀 Features
 
 ### 🔧 Backend Capabilities
+
 - **🔄 ConfigService (Singleton)**: Centralized configuration management with auto-save
-- **📊 BotService**: Intelligent status monitoring with multi-format response support  
+- **📊 BotService**: Intelligent status monitoring with multi-format response support
 - **🔌 Auto-Synchronization**: Real-time data extraction from live bot instances
 - **🛡️ Error Handling**: Robust connection failure management with detailed logging
 - **🔍 Health Checks**: Smart bot detection using multiple status criteria
@@ -99,6 +100,7 @@ bot-manager/
 - **🎯 Fallback Configuration**: Default API hosts for flexible deployment
 
 ### 🎨 Frontend Dashboard
+
 - **📱 Responsive UI**: Modern interface built with Next.js 15 and Shadcn/ui
 - **🤖 Bot Cards**: Live status display with real-time data synchronization
 - **📊 Status Indicators**: Visual health monitoring with uptime information
@@ -107,6 +109,7 @@ bot-manager/
 - **🔄 Real-time Updates**: Automatic refresh of bot status and information
 
 ### 🌐 Multi-Platform Support
+
 - **💬 WhatsApp Bots**: Full integration with phone number and push name sync
 - **🎮 Discord Bots**: Complete Discord bot monitoring and management
 - **🔌 Direct Communication**: Frontend can access individual bot APIs directly
@@ -125,14 +128,14 @@ The system uses a dynamic JSON configuration file that automatically updates wit
       "id": "whatsapp-bot-container-amp",
       "name": "Container AMP",
       "type": "whatsapp",
-      "pm2ServiceId": "wabot-7262", 
+      "pm2ServiceId": "wabot-7262",
       "apiHost": "http://20.121.40.254",
       "apiPort": 7262,
-      "phoneNumber": "18296459554",     // ← Auto-synced from bot
-      "pushName": "AM",                 // ← Auto-synced from bot
+      "phoneNumber": "18296459554", // ← Auto-synced from bot
+      "pushName": "AM", // ← Auto-synced from bot
       "enabled": true,
       "createdAt": "2025-06-11T14:21:59.712Z",
-      "updatedAt": "2025-06-11T17:35:52.771Z"  // ← Auto-updated
+      "updatedAt": "2025-06-11T17:35:52.771Z" // ← Auto-updated
     }
   ]
 }
@@ -140,108 +143,121 @@ The system uses a dynamic JSON configuration file that automatically updates wit
 
 ### 🔧 Configuration Fields
 
-| Field | Type | Description | Auto-Sync |
-|-------|------|-------------|-----------|
-| `id` | string | Unique bot identifier | ❌ |
-| `name` | string | Display name for the bot | ❌ |
-| `type` | `'whatsapp' \| 'discord'` | Bot platform type | ❌ |
-| `pm2ServiceId` | string | PM2 process identifier | ❌ |
-| `apiHost` | string | Bot API host URL | ❌ |
-| `apiPort` | number | Bot API port number | ❌ |
-| `phoneNumber` | string \| null | WhatsApp phone number | ✅ |
-| `pushName` | string \| null | WhatsApp display name | ✅ |
-| `enabled` | boolean | Whether bot is active | ❌ |
-| `createdAt` | string | Creation timestamp | ❌ |
-| `updatedAt` | string | Last modification time | ✅ |
+| Field          | Type                      | Description              | Auto-Sync |
+| -------------- | ------------------------- | ------------------------ | --------- |
+| `id`           | string                    | Unique bot identifier    | ❌        |
+| `name`         | string                    | Display name for the bot | ❌        |
+| `type`         | `'whatsapp' \| 'discord'` | Bot platform type        | ❌        |
+| `pm2ServiceId` | string                    | PM2 process identifier   | ❌        |
+| `apiHost`      | string                    | Bot API host URL         | ❌        |
+| `apiPort`      | number                    | Bot API port number      | ❌        |
+| `phoneNumber`  | string \| null            | WhatsApp phone number    | ✅        |
+| `pushName`     | string \| null            | WhatsApp display name    | ✅        |
+| `enabled`      | boolean                   | Whether bot is active    | ❌        |
+| `createdAt`    | string                    | Creation timestamp       | ❌        |
+| `updatedAt`    | string                    | Last modification time   | ✅        |
 
 ### 🌍 Environment Variables
 
 **Backend (.env):**
+
 ```bash
 PORT=3001                          # Backend server port
 FALLBACK_API_HOST=http://localhost # Default host for empty apiHost values
 ```
 
 **Frontend (.env.local):**
+
 ```bash
 NEXT_PUBLIC_API_BASE_URL=http://localhost:3001  # Backend API endpoint
 ```
 
 ### 🔌 Port Configuration
 
-| Service | Port | Purpose |
-|---------|------|---------|
-| **Backend API** | `3001` | Main API server |
-| **Frontend Web** | `7261` | Next.js development server |
-| **Bot Services** | `7260-7262, 8080` | Individual bot instances |
+| Service          | Port              | Purpose                    |
+| ---------------- | ----------------- | -------------------------- |
+| **Backend API**  | `3001`            | Main API server            |
+| **Frontend Web** | `7261`            | Next.js development server |
+| **Bot Services** | `7260-7262, 8080` | Individual bot instances   |
 
-## 🏃‍♂️ Quick Start
+## 🚀 Quick Start
 
-### 📋 Prerequisites
+### 1. Environment Setup
 
-- **Node.js** (v18 or higher recommended)
-- **npm** or **yarn** package manager
-- **Git** for version control
+Copy the root environment files and configure them for your setup:
 
-### 🛠️ Installation
-
-1. **Clone the repository:**
-   ```bash
-   git clone <repository-url>
-   cd bot-manager
-   ```
-
-2. **Install dependencies:**
-   ```bash
-   # Install root dependencies
-   npm install
-   
-   # Install backend dependencies
-   cd backend && npm install
-   
-   # Install frontend dependencies  
-   cd ../frontend && npm install
-   ```
-
-3. **Setup configuration:**
-   ```bash
-   # Ensure config directory exists
-   mkdir -p config
-   
-   # Copy sample configuration or create your own
-   # The system will auto-create bots.json if it doesn't exist
-   ```
-
-### 🚀 Running the Application
-
-#### Development Mode
-
-**Start Backend (Terminal 1):**
 ```bash
-cd backend
-npm run dev          # Starts on http://localhost:3001
+# Copy environment templates
+cp .env.example .env
+cp .env.example .env.production
+
+# Edit the files with your configuration
+nano .env
 ```
 
-**Start Frontend (Terminal 2):**
+### 2. Bot Configuration
+
+Create your bot configuration file:
+
 ```bash
-cd frontend  
-npm run dev          # Starts on http://localhost:7261
+# Copy the example bot configuration
+cp config/bots.json.example config/bots.json
+
+# Edit with your actual bot instances
+nano config/bots.json
 ```
 
-#### Production Mode
+**Bot Configuration Format:**
 
-**Backend:**
+```json
+{
+  "bots": [
+    {
+      "id": "unique-bot-id",
+      "name": "Bot Display Name",
+      "type": "whatsapp", // or "discord"
+      "pm2ServiceId": "wabot-7001", // PM2 service name (wabot-{port})
+      "isExternal": false, // true for remote bots, false for local PM2-managed
+      "apiHost": "http://localhost", // or remote server URL
+      "apiPort": 7001,
+      "phoneNumber": "+1234567890", // WhatsApp only
+      "pushName": "Bot Name", // WhatsApp display name
+      "enabled": true,
+      "createdAt": "2025-01-01T00:00:00.000Z",
+      "updatedAt": "2025-01-01T00:00:00.000Z"
+    }
+  ]
+}
+```
+
+**Bot Types:**
+
+- **External Bots** (`isExternal: true`): Running on remote servers, API-only monitoring
+- **Internal Bots** (`isExternal: false`): Managed by local PM2, full process monitoring
+
+### 3. Installation & Development
+
 ```bash
-cd backend
+# Install dependencies
+npm install
+
+# Start development servers (both frontend and backend)
+npm run dev
+
+# Or start individually
+npm run dev:frontend  # Port 7261
+npm run dev:backend   # Port 3001
+```
+
+### 4. Production Deployment
+
+```bash
+# Build for production
 npm run build
-npm start
-```
 
-**Frontend:**
-```bash
-cd frontend
-npm run build
-npm start
+# Start production servers
+npm run start:backend
+npm run start:frontend
 ```
 
 ### 🧪 Verify Installation
@@ -262,6 +278,7 @@ curl http://20.121.40.254:7262/status
 ### 📊 Backend Endpoints (Port 3001)
 
 #### 🤖 Bot Management
+
 ```bash
 GET    /api/bots              # List all bots with real-time status
 GET    /api/bots/:id          # Get specific bot details
@@ -271,13 +288,15 @@ DELETE /api/bots/:id          # Remove bot configuration
 ```
 
 #### 📈 Status Monitoring
+
 ```bash
 GET    /api/status/:id        # Get specific bot status
-GET    /api/status/whatsapp   # Get all WhatsApp bot statuses  
+GET    /api/status/whatsapp   # Get all WhatsApp bot statuses
 GET    /api/status/discord    # Get all Discord bot statuses
 ```
 
 #### 💬 Messaging
+
 ```bash
 POST   /api/bots/:id/send     # Send message via specific bot
 ```
@@ -287,25 +306,26 @@ POST   /api/bots/:id/send     # Send message via specific bot
 The frontend provides helper functions for easy API access:
 
 ```typescript
-import { api, botApi } from '@/lib/api';
+import { api, botApi } from "@/lib/api";
 
 // Backend API calls
 const bots = await fetch(api.getBots());
-const status = await fetch(api.getBotStatus('bot-id'));
+const status = await fetch(api.getBotStatus("bot-id"));
 
 // Direct bot communication
-const qrCode = botApi.getWhatsAppQR(bot);     // Get QR code URL
+const qrCode = botApi.getWhatsAppQR(bot); // Get QR code URL
 const status = botApi.getWhatsAppStatus(bot); // Direct status check
 ```
 
 ### 📝 Example API Responses
 
 **GET /api/bots:**
+
 ```json
 [
   {
     "id": "whatsapp-bot-container-amp",
-    "name": "Container AMP", 
+    "name": "Container AMP",
     "type": "whatsapp",
     "status": "online",
     "phoneNumber": "18296459554",
@@ -317,13 +337,14 @@ const status = botApi.getWhatsAppStatus(bot); // Direct status check
 ```
 
 **GET /api/status/whatsapp:**
+
 ```json
 [
   {
     "id": "whatsapp-bot-container-amp",
     "name": "Container AMP",
     "status": "online",
-    "phoneNumber": "18296459554", 
+    "phoneNumber": "18296459554",
     "pushName": "AM",
     "uptime": "9603 seconds",
     "lastChecked": "2025-06-11T17:35:52.771Z"
@@ -363,13 +384,14 @@ The system supports multiple response formats from different bot implementations
 
 ```typescript
 // Detects online status using multiple criteria
-const isOnline = response.data.connected === true || 
-                 response.data.status === 'online';
+const isOnline =
+  response.data.connected === true || response.data.status === "online";
 
 // Extracts real data regardless of response format
-const phoneNumber = response.data.client?.wid?.user || 
-                   response.data.phoneNumber ||
-                   bot.phoneNumber;
+const phoneNumber =
+  response.data.client?.wid?.user ||
+  response.data.phoneNumber ||
+  bot.phoneNumber;
 ```
 
 ## 🛠️ Development
@@ -377,12 +399,13 @@ const phoneNumber = response.data.client?.wid?.user ||
 ### 🎯 Adding a New Bot
 
 1. **Via API (Recommended):**
+
    ```bash
    curl -X POST http://localhost:3001/api/bots \
      -H "Content-Type: application/json" \
      -d '{
        "name": "New WhatsApp Bot",
-       "type": "whatsapp", 
+       "type": "whatsapp",
        "pm2ServiceId": "new-bot",
        "apiHost": "http://20.121.40.254",
        "apiPort": 7263,
@@ -405,7 +428,7 @@ npm run dev          # Start with hot reload
 npm run build        # Build TypeScript
 npm run start        # Start production server
 
-# Frontend development  
+# Frontend development
 cd frontend
 npm run dev          # Start Next.js dev server
 npm run build        # Build for production
@@ -438,6 +461,7 @@ curl http://20.121.40.254:7262/status | jq .
 ### Common Issues
 
 #### 🔌 Port Conflicts
+
 ```bash
 # Check what's running on ports
 lsof -i :3001  # Backend
@@ -448,6 +472,7 @@ killall node
 ```
 
 #### 📡 Bot Connection Issues
+
 ```bash
 # Test direct bot connectivity
 curl -v http://20.121.40.254:7262/status
@@ -460,6 +485,7 @@ cat config/bots.json | jq '.bots[] | select(.apiPort == 7262)'
 ```
 
 #### 🔄 Configuration Issues
+
 ```bash
 # Validate JSON syntax
 jq . config/bots.json
@@ -473,17 +499,17 @@ ls -la config/bots.json
 
 ### 📋 Common Error Codes
 
-| Error | Cause | Solution |
-|-------|-------|----------|
-| `ECONNREFUSED` | Bot not running | Start bot instance with PM2 |
-| `Malformed URL` | Invalid apiHost | Remove trailing slashes from URLs |
-| `JSON Parse Error` | Invalid config | Validate JSON syntax |
-| `Port in use` | Port conflict | Change port or kill existing process |
+| Error              | Cause           | Solution                             |
+| ------------------ | --------------- | ------------------------------------ |
+| `ECONNREFUSED`     | Bot not running | Start bot instance with PM2          |
+| `Malformed URL`    | Invalid apiHost | Remove trailing slashes from URLs    |
+| `JSON Parse Error` | Invalid config  | Validate JSON syntax                 |
+| `Port in use`      | Port conflict   | Change port or kill existing process |
 
 ## 📚 Documentation
 
 - **[Migration Guide](./MIGRATION_GUIDE.md)** - Comprehensive migration documentation
-- **[Development Setup](./DEVELOPMENT.md)** - Local development instructions  
+- **[Development Setup](./DEVELOPMENT.md)** - Local development instructions
 - **[Backend API](./backend/README.md)** - Backend-specific documentation
 - **[Frontend Guide](./frontend/README.md)** - Frontend component documentation
 
@@ -514,6 +540,7 @@ This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) 
 ## 🚀 What's New in v2.0
 
 ### ✨ Major Improvements
+
 - **🔄 Auto-Sync Technology**: Real-time data synchronization with live bots
 - **🎛️ Configuration-Driven**: Dynamic JSON-based bot management
 - **📊 Intelligent Monitoring**: Smart status detection and health checks
@@ -521,6 +548,7 @@ This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) 
 - **🎨 Modern UI**: Enhanced dashboard with QR code access
 
 ### 🔧 Technical Enhancements
+
 - **Singleton ConfigService**: Centralized configuration management
 - **Enhanced BotService**: Robust error handling and multi-format support
 - **Simplified API Architecture**: Removed unnecessary proxy layers
@@ -528,13 +556,14 @@ This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) 
 - **Improved Error Handling**: Detailed logging and graceful failures
 
 ### 📈 Performance Benefits
-- **Reduced Complexity**: Simplified frontend-backend communication  
+
+- **Reduced Complexity**: Simplified frontend-backend communication
 - **Real-Time Updates**: Automatic synchronization without manual intervention
 - **Scalable Architecture**: Easy bot addition without code changes
 - **Optimized Requests**: Direct bot communication when possible
 
 ---
 
-*For detailed migration information, see [MIGRATION_GUIDE.md](./MIGRATION_GUIDE.md)*
+_For detailed migration information, see [MIGRATION_GUIDE.md](./MIGRATION_GUIDE.md)_
 
 **Version:** 2.0.0 | **Last Updated:** June 11, 2025 | **Migrated By:** Bot Manager Development Team
